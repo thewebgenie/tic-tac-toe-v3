@@ -21,11 +21,15 @@ h1 {
   box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1);
   display: inline-block;
   padding: 1.25em 3em;
+  margin-bottom: 5px;
   text-decoration: none;
   -webkit-transition: 0.25s ease;
   transition: 0.25s ease; }
-  .button:hover {
-    color: #000; }
+
+.button:hover {
+    background-color: black;
+    color: #fff; 
+  }
 
 .screen {
   text-align: center;
@@ -66,18 +70,18 @@ h1 {
       z-index: -1; }
   .screen-win-tie {
     background: #54D17A; }   
-  .screen-win-one {
+  .screen-win-1 {
     background: #FFA000; }
-    .screen-win-one .button {
+    .screen-win-1 .button {
       color: #3688C3; }
-    .screen-win-one p:before {
+    .screen-win-1 p:before {
       content: "o";
       top: 1.75rem; }
-  .screen-win-two {
+  .screen-win-2 {
     background: #3688C3; }
-    .screen-win-two .button {
+    .screen-win-2 .button {
       color: #FFA000; }
-    .screen-win-two p:before {
+    .screen-win-2 p:before {
       content: "×";
       top: 4.5rem; }
 
@@ -137,5 +141,34 @@ h1 {
     .boxes .box-filled-2 {
       background-color: #3688C3;
       background-image: url(../img/x.svg); }
+    .boxes .box-hover-1 {
+      background-image: url(../img/o.svg);
+    }
+    .boxes .box-hover-2 {
+      background-image: url(../img/x.svg);
+    }
 
+#player1 {
+  background-image: url(../img/o.svg);
 
+}
+#player2 {
+  background-image: url(../img/x.svg);
+}
+.players p {
+  margin-top: -3px;
+}
+.players {
+  padding-bottom: 0px;
+}
+/*.playerSelect {
+}*/
+.playerSelect:hover {
+  color: #54D17A;
+  background-color: black;
+}
+.activebut {
+  color: #54D17A;
+  background-color: black;
+  box-shadow: inset 0px 0px 11px white;
+}

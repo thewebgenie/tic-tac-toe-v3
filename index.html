@@ -8,6 +8,20 @@
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <div class="screen screen-start" id="start">
+    <header>
+      <h1>Tic Tac Toe</h1>
+      <a href="#" id="startbutton" class="button">Start game</a><br>
+      <a href="#" id="psb1" class="button playerSelect">1 Player</a>
+      <a href="#" id="psb2" class="button playerSelect">2 Player</a><br>
+      <label for="player">Player Name:</label>
+      <input type="text" name="player" id="player">
+      <label for="player1name">Player 1 Name:</label>
+      <input type="text" name="player" id="player1name"><br><br>
+      <label for="player2name">Player 2 Name:</label>
+      <input type="text" name="player" id="player2name">
+    </header>
+  </div>
 	<div class="board" id="board">
   <header>
     <h1>Tic Tac Toe</h1>
@@ -32,5 +46,14 @@
     <li class="box"></li>
   </ul>
 </div>
+<div class="screen screen-win" id="finish">
+  <header>
+    <h1>Tic Tac Toe</h1>
+    <p class="message"></p>
+    <a href="#" id="ngb" class="button">New game</a>
+  </header>
+</div>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="js/script.js"></script>
 </body>
 </html>
