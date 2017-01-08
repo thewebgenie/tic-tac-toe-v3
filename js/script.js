@@ -5,6 +5,7 @@
 	var $finish = $('#finish');
 	var arrayofboxes = [];
 	var winner = null;
+	var activeNumPlayers;
 	$('#player').hide();
     $('#player').prev().hide();
     $('#player1name').hide();
@@ -25,17 +26,17 @@
         $(this).siblings().removeClass("activebut");
         $('#startbutton').show();
         var playersString = $('.activebut').text();
-		var activeNumPlayers = parseInt(playersString);
-	 	console.log(activeNumPlayers);
+		activeNumPlayers = parseInt(playersString);
 	 	if(activeNumPlayers == 1) {
 	 		onePlayerName();
 	 	}
 	 	else if(activeNumPlayers == 2) {
 	 		twoPlayerName();
 	 	}
+	 	return activeNumPlayers;
     });
     function onePlayerName() {
-    	$('#player').show();
+    	$('#player').show().focus();
     	$('#player').prev().show();
     	$('#player1name').hide();
     	$('#player1name').prev().hide();
@@ -45,7 +46,7 @@
     function twoPlayerName() {
     	$('#player').hide();
     	$('#player').prev().hide();
-    	$('#player1name').show();
+    	$('#player1name').show().focus();
     	$('#player1name').prev().show();
     	$('#player2name').show();
     	$('#player2name').prev().show();
@@ -62,6 +63,7 @@
 		if ($('#psb1').hasClass('activebut')) {
 			if(playername != '') {
 				$('#player1').append('<br><p>' + $('#player').val() +'</p>');
+				$('#player2').append('<br><p>Computer</p>');
 				$start.hide();
 				$board.show(); 
 			}
@@ -71,6 +73,8 @@
 		}
 		else if ($('#psb2').hasClass('activebut')) {
 			if(player1name != '' &&  player2name != '') {
+				$('#player1').append('<br><p>' + $('#player1name').val() +'</p>');
+				$('#player2').append('<br><p>' + $('#player2name').val() +'</p>');
 				$start.hide();
 				$board.show(); 
 			}
@@ -79,20 +83,8 @@
 			}
 		}
 		
-});$('.box').on('mouseenter', function() {
-        //stuff to do on mouse enter
-        	if(activePlayer == 1) {
-        		$(this).addClass('box-hover-1');
-        	}
-        	else {
-        		$(this).addClass('box-hover-2');
-        	}
-    	});
-	$('.box').on('mouseleave', function() {
-    	$(this).removeClass('box-hover-1');
-    	$(this).removeClass('box-hover-2');
-	});
-	//create array with winning combinations
+});
+	// create array with winning combinations
 	var winCombos = [
 		[0, 1, 2],
 		[3, 4, 5],
@@ -113,25 +105,36 @@
 		$('.message').text("It's a Tie!");
 	}
 }
-	
-	//create function for determining if there is a winner
 	function isWinner(a, b, c, sym) {
 		var $a = $('.box').get(a);
 		var $b = $('.box').get(b);
 		var $c = $('.box').get(c);
+		console.log(winner);
 		if ($($a).hasClass(sym) && $($b).hasClass(sym) && $($c).hasClass(sym)) {
-			console.log('winner!');
-			winner = sym.slice(15);
-			console.log(winner);
+			
+			var winnern = sym.slice(15);
 			$board.hide();
 			$finish.show();
-			$($finish).addClass('screen-win-' + winner);
-			$('.message').text('Winner');
+			$($finish).addClass('screen-win-' + winnern);
+			var nameWinner = $('player'+winnern+'name');
+			$('.message').text('Wins');
+			// if (nameWinner = 'player1name') {
+			// 	$('.message').append($('#player1name').val()+' Wins');
+			// }
+			// if (nameWinner = 'player2name') {
+			// 	$('.message').append($('#player2name').val()+' Wins');
+			// }
+			
+
 			return winner;
-		}
+}
 	}
+	isTie();
 	
-	$('.box').on('click', function() {
+	
+        //stuff to do on mouse enter
+        	
+       $('.box').on('click', function() {
 
 		console.log(arrayofboxes.length);
 		if ($(this).hasClass("box-filled-1") || $(this).hasClass("box-filled-2") ) {
@@ -155,14 +158,29 @@
 			}
 			
 			//for every winning combination run isWinner function
-			for (var i = 0; i <= winCombos.length; i++) {
-			isWinner(winCombos[i] [1], winCombos[i][1], winCombos[i][2], $(this).attr('class'));
+		for (var i = 0; i <= winCombos.length; i++) {
+			isWinner(winCombos[i][0], winCombos[i][1], winCombos[i][2], $(this).attr('class'));
 		}
-		isTie();
 		}
-		
-	
  	});
+       	$('.box').hover(
+        	function() {
+        		if ($(this).hasClass('box-filled-1') || $(this).hasClass('box-filled-2')) {
+
+       		}
+       		else { 
+	        	if(activePlayer == 1) {
+	        		$(this).css('background-image', 'url(img/o.svg)');
+	        	}
+	        	else {
+	        		$(this).css('background-image', 'url(img/x.svg)');
+	        	}
+       		}}, 
+       		function() {
+        $(this).css('background-image', '');
+    	$(this).css('background-image', '');
+			}
+    	); 
 	//starting a new game
 	$('#ngb').on('click', function newGame() {
 		$('.box').each(function () {
@@ -175,6 +193,7 @@
 		$($finish).removeClass('screen-win-tie');
 		$($finish).removeClass('screen-win-1');
 		$($finish).removeClass('screen-win-2');
+		$('.message').text('');
 		//set winner back to null
 		winner = null;
 	});		
