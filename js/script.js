@@ -106,6 +106,7 @@
 	}
 }
 	function isWinner(a, b, c, sym) {
+		isTie();
 		var $a = $('.box').get(a);
 		var $b = $('.box').get(b);
 		var $c = $('.box').get(c);
@@ -129,7 +130,7 @@
 			return winner;
 }
 	}
-	isTie();
+	
 	
 	
         //stuff to do on mouse enter
